@@ -1,0 +1,49 @@
+<html>
+<head>
+  <script src="https://tt.ohtsu.org/register_tt_ot.js"></script>
+  <title>Trust Token Redeem Test</title>
+</head>
+<body>
+<h2>Trust Token Redeem Test</h2>
+<div id="result"></div>
+<script>
+  window.onload = (async function() {
+    if (!document.hasTrustToken) {
+       document.getElementById('result').innerHTML = "This browser does not support Trust Token V1. Please use Chrome 86 above.";
+       return 1;
+    }
+    const issuer = 'https://tt.ohtsu.org';
+
+    const has_trusttoken = await document.hasTrustToken(issuer);
+    if (!has_trusttoken) {
+      document.getElementById('result').innerHTML = 'Trust Token is empty. <a href="' + issuer + '/">To Issue Token</a>';
+      return;
+    }
+
+    let result;
+    try {
+      const response = await fetch(issuer + '/trusttoken/redeem/', {
+        trustToken: {
+          type: 'token-redemption',
+          issuer: issuer,
+          refreshPolicy: 'none'
+        }
+      });
+      const data = await response.json();
+      result = 'Issue '+ data.Result + ' : ' + data.Reason + '.';
+      if (data.Result === 'succeeded') {
+        result += ' <a href="send_rr.html">To Send RR</a>';
+      }
+    } catch(e) {
+      console.log(e);
+      result = 'Redeem Failed. ' + e;
+      if (e.name === 'NoModificationAllowedError') {
+        result += ' <br><a href="send_rr.html">To Send RR</a>';
+      }
+    } finally {
+      document.getElementById('result').innerHTML = result;
+    }
+  });
+</script>
+</body>
+</html>

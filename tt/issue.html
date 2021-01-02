@@ -1,0 +1,32 @@
+<html>
+<head>
+  <script src="https://tt.ohtsu.org/register_tt_ot.js"></script>
+  <title>Trust Token Issue Test</title>
+</head>
+<body>
+<h2>Trust Token Issue Test</h2>
+<div id="result"></div>
+<script>
+  window.onload = (async function() {
+    const issuer = 'https://tt.ohtsu.org';
+    let result;
+    try {
+      const response = await fetch(issuer + '/trusttoken/issue/', {
+        trustToken: {
+          type: 'token-request'
+        }
+      });
+      const data = await response.json();
+      result = 'Issue '+ data.Result + ' : ' + data.Reason + '.';
+      if (data.Result === 'succeeded') {
+        result += ' <a href="https://html5.ohtsu.org/redeem.html">To Redeem Token(Policy: refresh)</a>';
+      }
+    } catch(e) {
+      result = 'Issue Failed. ' + e;
+    } finally {
+      document.getElementById('result').innerHTML = result;
+    }
+  });
+</script>
+</body>
+</html>
