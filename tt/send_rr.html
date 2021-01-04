@@ -17,7 +17,7 @@
     let result, rrResult, crdResult;
     try {
       const response = await fetch(issuer + '/trusttoken/sendrr/', {
-        headers: new Headers({'Signed-Headers': 'sec-signed-redemption-record, sec-time'}),
+        headers: new Headers({'Signed-Headers': 'sec-redemption-record, sec-time'}),
         trustToken: {
           type: 'send-redemption-record',
           issuers: [issuer],
@@ -37,7 +37,7 @@
        document.getElementById('result').innerHTML = result;
        console.log(rrResult);
        if (rrResult) {
-         document.getElementById('rr').innerHTML = "signed redemption record: " + rrResult;
+         document.getElementById('rr').innerHTML = "redemption record: " + rrResult;
        }
        console.log(crdResult)
        if (crdResult) {
