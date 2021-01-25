@@ -19,7 +19,7 @@
       const data = await response.json();
       result = 'Issue '+ data.Result + ' : ' + data.Reason + '.';
       if (data.Result === 'succeeded') {
-        result += ' <a href="redeem.html">To Redeem Token(Policy: refresh)</a>';
+        result += ' <a href="redeem.html">To Redeem Token(Policy: none)</a>';
       }
     } catch(e) {
       result = 'Issue Failed. ' + e;

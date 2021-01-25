@@ -9,7 +9,7 @@
 <script>
   window.onload = (async function() {
     if (!document.hasTrustToken) {
-       document.getElementById('result').innerHTML = "This browser does not support Trust Token V1. Please use Chrome 86 above.";
+       document.getElementById('result').innerHTML = "This browser does not support Trust Token. Please enable the feature.";
        return 1;
     }
     const issuer = 'https://tt.ohtsu.org';
